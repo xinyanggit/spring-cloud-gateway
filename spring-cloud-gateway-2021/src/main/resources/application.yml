@@ -1,0 +1,75 @@
+server:
+  port: 2021
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+    reactor.ipc.netty: debug
+
+
+
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: add_request_predicates
+#          uri: http://httpbin.org/get
+#          filters:
+#            - AddRequestHeader=X-Request-Foo,iris
+#          predicates:
+#           - After=2019-01-20T17:42:47.789-07:00[America/Denver]
+#  application:
+#      name: spring-cloud-gateway
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: add_request_predicates
+#          uri: http://irissz.com/
+#          filters:
+#            - RewritePath=/foo/(?<segment>.*), /$\{segment}
+#          predicates:
+#            - Path=/foo/**
+#spring:
+#  cloud:
+#    zookeeper:
+#      connect-string: 192.168.15.13:2181,192.168.15.13:2182,192.168.15.13:2183
+#      discovery:
+#        enabled: false
+#    discovery:
+#      locator:
+#         lowerCaseServiceId: true  # \u9ED8\u8BA4\u662F\u5927\u5199\uFF0C\u8F6C\u6362\u6210\u5C0F\u5199
+#      enabled: false # \u662F\u5426\u53EF\u7528
+#    gateway:
+#      routes:
+#        - id: microservice-provider
+#          uri: lb://microservice-provider1
+#          predicates:
+#            - Path=/iris/** # \u7B26\u5408\u8DEF\u7531 \u6267\u884Crouter
+#          filters:
+#            - StripPrefix=1 # \u662F\u5426\u53BB\u6389\u524D\u9762 /iris
+#  application:
+#    name: spring-cloud-gateway
+spring:
+  cloud:
+    zookeeper:
+      connect-string: 192.168.15.13:2181,192.168.15.13:2182,192.168.15.13:2183
+      discovery:
+        enabled: true  #\u7F51\u5173 \u5FC5\u987B\u5F00\u542F \u662F\u5426\u6CE8\u518C
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+      routes:
+        - id: microservice-provider
+          uri: lb://microservice-provider
+          predicates:
+            - Path=/iris/** # \u7B26\u5408\u8DEF\u7531 \u6267\u884Crouter
+          filters:
+            - StripPrefix=1 # \u662F\u5426\u53BB\u6389\u524D\u9762 /iris
+  application:
+    name: spring-cloud-gateway
+

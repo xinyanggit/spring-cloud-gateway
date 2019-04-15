@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    zookeeper:
+      discovery:
+        enabled: true # \u662F\u5426\u6CE8\u518C\u663E\u793A
+      connect-string:  192.168.15.13:2181,192.168.15.13:2182,192.168.15.13:2183 # \u8FDE\u63A5zk \u670D\u52A1\u5668
+  application:
+    name: microservice-provider
